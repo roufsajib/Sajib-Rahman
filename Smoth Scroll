@@ -1,0 +1,27 @@
+  /*================================
+        Smoth Scroll
+    ==================================*/
+    function smoothScrolling($links, $topGap) {
+        var links = $links;
+        var topGap = $topGap;
+
+        links.on("click", function() {
+            if (location.pathname.replace(/^\//, '') === this.pathname.replace(/^\//, '') && location.hostname === this.hostname) {
+                var target = $(this.hash);
+                target = target.length ? target : $("[name=" + this.hash.slice(1) + "]");
+                if (target.length) {
+                    $("html, body").animate({
+                        scrollTop: target.offset().top - topGap
+                    }, 1000, "easeInOutExpo");
+                    return false;
+                }
+            }
+            return false;
+        });
+    }
+    var mainHeaderHeight = $('.header-area').innerHeight();
+    $(window).on("load", function() {
+        smoothScrolling($("a.scrl_me_down[href^='#']"), mainHeaderHeight);
+        smoothScrolling($("a.got-top[href^='#']"), mainHeaderHeight);
+        smoothScrolling($("#nav_mobile_menu ul li a[href^='#']"), mainHeaderHeight);
+    });
